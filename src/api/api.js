@@ -39,4 +39,20 @@ api.interceptors.response.use(
     }
 );
 
+api.interceptors.request.use(
+    (config) => {
+        // Grab the token from localStorage (matching your logout logic)
+        // If your login component saves it under a different key, adjust "token" below
+        const token = localStorage.getItem("token") || localStorage.getItem("jwtToken");
+
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
 export default api;

@@ -48,9 +48,7 @@ function OrderSummary ({ totalPrice, cart, address, paymentMethod}){
             <div className='space-y-2 p-2'>
                 {cart?.map((item) => (
                     <div key={item?.productId} className='flex items-center space-x-4 px-2 py-1 border rounded-lg'>
-                        <img src={`${import.meta.env.VITE_BACK_END_URL}/images/${
-                            item?.productImage
-                        }`}
+                        <img src={item?.productImage}
                         alt='Product'
                         className='w-12 h-12 rounded-sm'></img>
                     <div className='text-gray-500'>

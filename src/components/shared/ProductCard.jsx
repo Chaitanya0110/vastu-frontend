@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/actions";
 import toast from "react-hot-toast"
 
- const ProductCard = ({
+const ProductCard = ({
       productId,
       productName,
       productImage,
@@ -16,7 +16,7 @@ import toast from "react-hot-toast"
       discount,
       specialPrice,
       about = false
- }) => {
+}) => {
     const [openProductModal, setOpenProductModal] = useState(false);
     const btnLoader = false;
     const [selectedViewProduct, setSelectedViewProduct] = useState("");
@@ -47,7 +47,7 @@ import toast from "react-hot-toast"
                     discount,
                     specialPrice}
             )}} className="w-full overflow-hidden aspect-3/2">
-                <img src={productImage} alt={productName} className="w-full h-full cursor-pointer transition-transform duration-300 transform hover:scale-105" />
+                <img src={productImage} alt={productName} className="w-full h-full object-cover cursor-pointer transition-transform duration-300 transform hover:scale-105" />
             </div>
             
             <div className="p-4">
@@ -86,7 +86,7 @@ import toast from "react-hot-toast"
 
                     <button onClick={() => addToCartHandler({
                             productId,
-                            image: productImage,
+                            image: productImage, 
                             productName,
                             description,
                             specialPrice,
@@ -103,6 +103,6 @@ import toast from "react-hot-toast"
             <ProductViewModel open={openProductModal} setOpen={setOpenProductModal} product={selectedViewProduct} isAvailable={isAvilable} />
         </div>
     )
- }
+}
  
- export default ProductCard;
+export default ProductCard;

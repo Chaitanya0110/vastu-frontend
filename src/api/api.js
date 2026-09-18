@@ -20,8 +20,7 @@ api.interceptors.response.use(
             console.warn("Session expired! Auto-logging out...");
             
             // 1. Wipe all sensitive and user-specific data from local storage
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
+            localStorage.removeItem("auth");
             localStorage.removeItem("cartItems");
 
             // 2. Clear Redux states (Use 'store.dispatch' since we aren't in a React component)
@@ -41,18 +40,22 @@ api.interceptors.response.use(
 
 api.interceptors.request.use(
     (config) => {
-        // Grab the token from localStorage (matching your logout logic)
-        // If your login component saves it under a different key, adjust "token" below
-        const token = localStorage.getItem("token") || localStorage.getItem("jwtToken");
+        // Grab the "auth" string from localStorage and parse it back into a JavaScript object
+        const authDataString = localStorage.getItem("auth");
+        
+        if (authDataString) {
+            const authData = JSON.parse(authDataString);
+            const token = authData.jwtToken; 
 
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`;
+            }
         }
         return config;
     },
     (error) => {
         return Promise.reject(error);
     }
-);
+)
 
 export default api;
